@@ -5,7 +5,14 @@ using UnityEngine;
 using bmlTUX.Scripts.ExperimentParts;
 using Leap;
 using System;
+using System.CodeDom;
+using TMPro;
 
+/// <summary>
+/// LeapFingerCounting Project
+/// [Umut Can Vural]
+/// [umutcan.vural@gmail.com]
+/// </summary>
 
 /// <summary>
 /// Classes that inherit from Trial define custom behaviour for your experiment's trials.
@@ -23,13 +30,12 @@ public class MP_CanonicalFingersTrialScript : Trial {
 
     private readonly MP_CanonicalFingersExperimentRunner experimentRunner;
 
-    // TODO:LEAP RELATED
     private readonly Controller controller = new Controller();
     private Frame current;
     private Hand handRight;
 	private Hand handLeft;
     
-	private List<float> fingerRT = new List<float>(); //TODO:CURRENTLY DISABLED
+	private List<float> fingerRt = new List<float>(); //TODO:CURRENTLY DISABLED
 	
 	
     // Required Constructor. Good place to set up references to objects in the unity scene
@@ -39,36 +45,43 @@ public class MP_CanonicalFingersTrialScript : Trial {
         // GameObject myGameObject = myRunner.MyGameObject;  // get reference to gameObject stored in your custom runner
         
         experimentRunner = (MP_CanonicalFingersExperimentRunner)runner;
+        
     }
 
 
     // Optional Pre-Trial code. Useful for setting unity scene for trials. Executes in one frame at the start of each trial
     protected override void PreMethod() {
-	    
-	    fingerRT = DigitDetector();
-	    
 	    // float thisTrialsDistanceValue = (float)Data["MyDistanceFloatVariableName"]; // Read values of independent variables
         // myGameObject.transform.position = new Vector3(thisTrialsDistanceValue, 0, 0); // set up scene based on value
-    }
+        
+	}
 
 
     // Optional Pre-Trial code. Useful for waiting for the participant to
     // do something before each trial (multiple frames). Also might be useful for fixation points etc.
     protected override IEnumerator PreCoroutine()
     {
-
-	    var fixationCrossDuration = (float)GetRandomNumber(0.5, 1.1);
+	    var fixationCrossDuration = (float)GetRandomNumber(1, 1.5);
+	    Data["FixCrossDuration"] = fixationCrossDuration;
 	    
-	    experimentRunner.writingBoard.text = "+";         
+	    var thisTrialsNumber = (int) Data["PrimeNumbers"];
+	    var thisDistance = (int) Data["Distance"];
+	    var thisCountingOrder = (string) Data["CountingOrder"];
+	    var thisTargetNumber = thisTrialsNumber + thisDistance;
+	    
+		experimentRunner.writingBoard.color = Color.white;
+	    experimentRunner.writingBoard.alignment = TextAlignmentOptions.Midline;
+	    experimentRunner.writingBoard.text = ".";         
 	    yield return new WaitForSeconds(fixationCrossDuration);
 	    experimentRunner.writingBoard.text = "#";     
-	    yield return new WaitForSeconds(0.07f);       
-	    experimentRunner.writingBoard.text = "4";    //TODO: Addition NEUTRAL and NUMERICAL Primes
-	    yield return new WaitForSeconds(0.07f);        
+	    yield return new WaitForSeconds(0.05f);
+	    experimentRunner.writingBoard.text = thisTrialsNumber.ToString();
+	    yield return new WaitForSeconds(0.05f);        
 	    experimentRunner.writingBoard.text = "#";     
-	    yield return new WaitForSeconds(0.07f);        
-	    experimentRunner.writingBoard.text = "MODEL HAND"; //TODO: Hand models
-	    
+	    yield return new WaitForSeconds(0.05f);
+	    experimentRunner.writingBoard.text = "";
+	    experimentRunner.CallModelPrefab(thisTargetNumber);
+	    experimentRunner.isTiming = true;
 	    yield return null; //required for coroutine
     }
 
@@ -76,56 +89,49 @@ public class MP_CanonicalFingersTrialScript : Trial {
     // Main Trial Execution Code.
     protected override IEnumerator RunMainCoroutine()
     {
+	    var thisTrialsNumber = (int) Data["PrimeNumbers"];
+	    var thisDistance = (int) Data["Distance"];
+	    var thisTargetNumber = thisTrialsNumber + thisDistance;
 	
-	    
-	    
-	    // TODO: AS SIMPLE AS POSSIBLE!!!
+	     // TODO: AS SIMPLE AS POSSIBLE!!!
 	    // You might want to do a while-loop to wait for participant response: 
-        bool waitingForParticipantResponse = true;
+        var waitingForParticipantResponse = true;
         while (waitingForParticipantResponse) {   // keep check each frame until waitingForParticipantResponse set to false.
 
             if (Input.GetKeyDown(KeyCode.Return)) { // check return key pressed
-	            //TODO: SKIP CURRENT TRIAL WITH DEFAULT RT -999 MESSAGE
-                waitingForParticipantResponse = false;  // escape from while loop
+	            waitingForParticipantResponse = false;  // escape from while loop
+	            experimentRunner.isTiming = false;
+	            Data["Skipped"] = true;
+	            experimentRunner.DestroyModelPrefab();
             }
            
-	        else if((int) DigitDetector()[10] == 4){
-	           waitingForParticipantResponse = false;
+	        else if((int) DigitDetector()[10] == thisTargetNumber)
+            {
+	            
+	            waitingForParticipantResponse = false;
+	            experimentRunner.isTiming = false;
+	            fingerRt = DigitDetector();
+	            experimentRunner.DestroyModelPrefab();
             }
-          
+
+        
             yield return null; // wait for next frame while allowing rest of program to run (without this the program will hang in an infinite loop)
         }
-    
+        
+       
     }
 
 
     // Optional Post-Trial code. Useful for waiting for the participant to do something after each trial (multiple frames)
     protected override IEnumerator PostCoroutine() {
 	    
-	    /*
-	    
-	    //TODO: Feedback
-	    if (true)  //TODO: COMPARISON 
+	    foreach(var numbers in fingerRt)
 	    {
-		    experimentRunner.writingBoard.color = Color.green;
-		    experimentRunner.writingBoard.text = "+";
-		    yield return new WaitForSeconds(0.3f);      
-		    experimentRunner.writingBoard.text = "";   
-		    yield return new WaitForSeconds(0.3f);
+		    Debug.Log(numbers);
 	    }
-	    else
-	    {
-		    experimentRunner.writingBoard.color = Color.red;
-		    experimentRunner.writingBoard.text = "+";
-		    yield return new WaitForSeconds(0.3f);
-		    experimentRunner.writingBoard.text = "";
-		    yield return new WaitForSeconds(0.3f);
-	    }
-	    experimentRunner.writingBoard.color = Color.white;
-	  
-	    */
 	    
-        yield return null;
+	    experimentRunner.reactionTimer = 0;
+	    yield return null;
     }
 
 
@@ -134,25 +140,21 @@ public class MP_CanonicalFingersTrialScript : Trial {
     protected override void PostMethod() {
         // How to write results to dependent variables: 
         // Data["MyDependentFloatVariable"] = someFloatVariable;
+
     }
     
-    //TODO: DigitDetector Method
-    //Calculates total number of fingers which are extended.
-    //Additionally saves RTs of each extended finger inside a list.
+    /// <summary>
+    ///  Calculates total number of fingers which are extended.
+    ///  Additionally saves RTs of each extended finger inside a list.
+    /// </summary>
     private List<float> DigitDetector() //Hand Digit Calculator
     	{
-	        //TODO: EXTENSION THRESHOLDS CHECK OR RT ELIMINATION DUE TO OUTPUT LIST
+	        //TODO: EXTENSION THRESHOLDS CHECK OF EACH FINGER
 	        
-	        
-    		int a = 0, b = 0, c = 0, d = 0, e = 0, sum = 0;
+	        int a = 0, b = 0, c = 0, d = 0, e = 0 ;
     		int f = 0, g = 0, h = 0, i = 0, j = 0;
-
-            var reactionTimer = 0; //TODO: RT CALCULATION IS CURRENTLY DISABLED
-            
-    		var fingerRTs = new List<float>(){0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
-    		var rtSum = 0.0f;
-            
-            current = controller.Frame(); 
+            var fingerRTs = new List<float>(){0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
+    		current = controller.Frame(); 
     		
     		switch (current.Hands.Count)
             {
@@ -179,29 +181,29 @@ public class MP_CanonicalFingersTrialScript : Trial {
     			if (handRight.Fingers[0].IsExtended)
     			{
     				a = 1;
-    				fingerRTs[0] = reactionTimer;
-    			}
+                    fingerRTs[0] = experimentRunner.reactionTimer;
+                    
+                }
 				if (handRight.Fingers[1].IsExtended)
     			{
     				b = 1;
-    				fingerRTs[1] = reactionTimer;
+    				fingerRTs[1] = experimentRunner.reactionTimer;
     			}
 				if (handRight.Fingers[2].IsExtended)
     			{
     				c = 1;
-    				fingerRTs[2] = reactionTimer;
+    				fingerRTs[2] = experimentRunner.reactionTimer;
     			}
 				if (handRight.Fingers[3].IsExtended)
     			{
     				d = 1;
-    				fingerRTs[3] = reactionTimer;
+    				fingerRTs[3] = experimentRunner.reactionTimer;
     			}
     			if (handRight.Fingers[4].IsExtended)
     			{
     				e = 1;
-    				fingerRTs[4] = reactionTimer;
+    				fingerRTs[4] = experimentRunner.reactionTimer;
     			}
-    			
     		}
     
     		if (handLeft != null)
@@ -209,51 +211,46 @@ public class MP_CanonicalFingersTrialScript : Trial {
 	            if (handLeft.Fingers[0].IsExtended)
     			{
     				f = 1;
-    				fingerRTs[5] = reactionTimer;
+    				fingerRTs[5] = experimentRunner.reactionTimer;
     			}
 	            if (handLeft.Fingers[1].IsExtended)
     			{
     				g = 1;
-    				fingerRTs[6] = reactionTimer;
+    				fingerRTs[6] = experimentRunner.reactionTimer;
     			}
 	            if (handLeft.Fingers[2].IsExtended)
     			{
     				h = 1;
-    				fingerRTs[7] = reactionTimer;
+    				fingerRTs[7] = experimentRunner.reactionTimer;
     			}
 	            if (handLeft.Fingers[3].IsExtended)
     			{
     				i = 1;
-    				fingerRTs[8] = reactionTimer;
+    				fingerRTs[8] = experimentRunner.reactionTimer;
     			}
 	            if (handLeft.Fingers[4].IsExtended)
     			{
     				j = 1;
-    				fingerRTs[9] = reactionTimer;
+    				fingerRTs[9] = experimentRunner.reactionTimer;
     			}
     		}
-    		sum = a + b + c + d + e + f + g + h + i + j;
+    		var sum = a + b + c + d + e + f + g + h + i + j;
     		fingerRTs[10] = sum;
     
-    		for(i = 0; i < 10; i++)
-    			rtSum += fingerRTs[i];      
-    		fingerRTs[11] = rtSum;
-    		
     		return fingerRTs;
     	}
     
     
-    //TODO: GetRandomNumber Method
+    //GetRandomNumber Method
     //Random.NextDouble returns a double between 0 and 1.
     //Multiply that by the range need to go into (difference between maximum and minimum)
     //and then add that to the base (minimum)
-    
-    public double GetRandomNumber(double minimum, double maximum)
+
+    private static double GetRandomNumber(double minimum, double maximum)
     { 
 	    var random = new System.Random();
 	    return random.NextDouble() * (maximum - minimum) + minimum;
     }
-    
-    
+
 }
 

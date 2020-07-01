@@ -21,60 +21,41 @@ MonoBehaviour:
   Factory:
     DataTypeToCreate: 8
     VariableTypeToCreate: 3
-    IntIVs: []
-    FloatIVs:
+    IntIVs:
+    - Name: PrimeNumbers
+      TypeOfVariable: 0
+      DataType: 0
+      ExpandSettings: 1
+      MixingType: 0
+      Block: 0
+      Values: 03000000040000000600000007000000
+      Probabilities:
+      - 0
+      - 0
+      - 0
+      - 0
     - Name: Distance
       TypeOfVariable: 0
-      DataType: 1
+      DataType: 0
       ExpandSettings: 1
       MixingType: 0
       Block: 0
-      Values:
-      - -2
-      - 0
-      - 2
+      Values: feffffff0000000002000000
       Probabilities:
       - 0
       - 0
       - 0
-    - Name: FingerConfigurations
-      TypeOfVariable: 0
-      DataType: 1
-      ExpandSettings: 1
-      MixingType: 0
-      Block: 0
-      Values:
-      - 3
-      - 4
-      - 6
-      - 7
-      Probabilities:
-      - 0
-      - 0
-      - 0
-      - 0
+    FloatIVs: []
     StringIVs:
-    - Name: Canonicity
+    - Name: CountingOrder
       TypeOfVariable: 0
       DataType: 2
       ExpandSettings: 1
       MixingType: 0
       Block: 0
       Values:
-      - Canonical
-      - NonCanonical
-      Probabilities:
-      - 0
-      - 0
-    - Name: Handedness
-      TypeOfVariable: 0
-      DataType: 2
-      ExpandSettings: 1
-      MixingType: 0
-      Block: 0
-      Values:
-      - LeftSide
-      - RightSide
+      - LeftHandFirst
+      - RightHandFirst
       Probabilities:
       - 0
       - 0
@@ -84,15 +65,15 @@ MonoBehaviour:
     Vector3IVs: []
     CustomDataTypeIVs: []
     IntDVs: []
-    FloatDVs: []
-    StringDVs: []
-    BoolDVs:
-    - Name: MatchedGesture
+    FloatDVs:
+    - Name: FixCrossDuration
       TypeOfVariable: 1
-      DataType: 3
-      ExpandSettings: 0
+      DataType: 1
+      ExpandSettings: 1
       Value: 0
-      DefaultValue: 0
+      DefaultValue: -999
+    StringDVs: []
+    BoolDVs: []
     GameObjectDVs: []
     Vector2DVs: []
     Vector3DVs: []
