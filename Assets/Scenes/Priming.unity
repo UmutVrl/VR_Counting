@@ -618,10 +618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d6dcfbe8aba38419add7e719ea8c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExperimentDesignFile: {fileID: 11400000, guid: ea38c3a6f1583684ab8f2ffd72c2ac38,
+  ExperimentDesignFile: {fileID: 11400000, guid: a8d51bce39d901644bea4beea756ed5a,
     type: 2}
   scriptReferences:
-    DragTrialScriptHere: {fileID: 11500000, guid: a8a982c490446dc4192daed3acb4c82d,
+    DragTrialScriptHere: {fileID: 11500000, guid: cb1eb94e28392fe4183b86cb9370176f,
       type: 3}
     DragBlockScriptHere: {fileID: 11500000, guid: f3f76ed14650ba24293cf8217cdf790f,
       type: 3}
@@ -640,17 +640,6 @@ MonoBehaviour:
   - {fileID: 6749499929075553737, guid: 1426d281bdc28584b885f098eefeae8b, type: 3}
   - {fileID: 6749499929075553737, guid: 64841c61035fec34daa4118ece36616f, type: 3}
   - {fileID: 6749499929075553737, guid: b615b348238e3f840837f1f50de314f5, type: 3}
-  - {fileID: 4578233217437698912, guid: 207b8e2c94758c54891c4641bdb72dd8, type: 3}
-  modelHandLeftCounting:
-  - {fileID: 6749499929075553737, guid: ca20e9d82fe470449befb9ac3a153834, type: 3}
-  - {fileID: 6749499929075553737, guid: a6e381e953aa51942be37b5f974cf336, type: 3}
-  - {fileID: 6749499929075553737, guid: 2288da900ad121f4f9c6d6cd29167360, type: 3}
-  - {fileID: 6749499929075553737, guid: 7ffe60d8b0288f349b5bed54aaa1f02e, type: 3}
-  - {fileID: 6749499929075553737, guid: a2805b857819e07448c947be5b1606bf, type: 3}
-  - {fileID: 6749499929075553737, guid: 827cb32f6a72850428ccf103b84ddde4, type: 3}
-  - {fileID: 6749499929075553737, guid: d5abc6e5b61ed39449f7bdb7d73ed07e, type: 3}
-  - {fileID: 6749499929075553737, guid: b7b1e099ee91bcd4a8ca9a13a461168e, type: 3}
-  - {fileID: 6749499929075553737, guid: 135aa9e700392e944ba6256adc6605e5, type: 3}
   - {fileID: 4578233217437698912, guid: 207b8e2c94758c54891c4641bdb72dd8, type: 3}
   cloneHandPosition: {fileID: 2115160840}
   reactionTimer: 0
@@ -2365,7 +2354,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976203604}
   m_LocalRotation: {x: 0, y: 0.76604444, z: 0, w: 0.64278764}
-  m_LocalPosition: {x: 0, y: 0, z: -0.258}
+  m_LocalPosition: {x: 0, y: 0, z: -0.222}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2373,7 +2362,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 100, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.233, y: 1.116}
+  m_AnchoredPosition: {x: 1.03, y: 1.116}
   m_SizeDelta: {x: 2, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1100220203
@@ -2876,7 +2865,7 @@ MonoBehaviour:
   ExperimentDesignFile: {fileID: 11400000, guid: ea38c3a6f1583684ab8f2ffd72c2ac38,
     type: 2}
   scriptReferences:
-    DragTrialScriptHere: {fileID: 11500000, guid: a8a982c490446dc4192daed3acb4c82d,
+    DragTrialScriptHere: {fileID: 11500000, guid: cb1eb94e28392fe4183b86cb9370176f,
       type: 3}
     DragBlockScriptHere: {fileID: 11500000, guid: f3f76ed14650ba24293cf8217cdf790f,
       type: 3}
@@ -2886,7 +2875,6 @@ MonoBehaviour:
   Running: 0
   writingBoard: {fileID: 0}
   modelHand: []
-  modelHandLeftCounting: []
   cloneHandPosition: {fileID: 0}
   reactionTimer: 0
   isTiming: 0

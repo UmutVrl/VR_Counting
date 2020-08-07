@@ -4,6 +4,7 @@ using TMPro;
 // ReSharper disable once RedundantUsingDirective
 using UnityEngine;
 using UnityEngine.Serialization;
+using System.Collections;
 
 /// <summary>
 /// LeapFingerCounting Project
@@ -23,28 +24,66 @@ public class MP_CanonicalFingersExperimentRunner : ExperimentRunner {
     //TODO: TextMEshPRO
     [FormerlySerializedAs("Board")] public TextMeshPro writingBoard;
     public GameObject[] modelHand;
+    public GameObject[] modelHandLeftCounting;
     public GameObject cloneHandPosition;
     
     public float reactionTimer;
     public bool isTiming;
     
-    public void CallModelPrefab(int a)
+    
+    public static class WaitFor
     {
+        public static IEnumerator Frames(int frameCount)
+        {
+            if (frameCount <= 0)
+            {
+                throw new ArgumentOutOfRangeException("frameCount", "Cannot wait for less that 1 frame");
+            }
+
+            while (frameCount > 0)
+            {
+                frameCount--;
+                yield return null;
+            }
+        }
+    }
+    
+    /// <summary>
+    // Instantiate Hand Models 
+    /// </summary>
+    /// <param name="a"></param>
+    /// a is the digit to be shown
+    /// <param name="b"></param>
+    /// b is teh starting position of the finger counting
+    /// LeftHandFirst or RightHandFirst  
+    //
+    public void CallModelPrefab(int a, string b)
+    {
+        
         var position = cloneHandPosition.transform.position;
         var rotation = cloneHandPosition.transform.rotation;
+
+        if (b == "LeftHandFirst")
+            Instantiate(modelHandLeftCounting[a-1], position, rotation);
+        else
+            Instantiate(modelHand[a-1], position, rotation);
         
-        Instantiate(modelHand[a-1], position, rotation);
     }
 
-    public void DestroyModelPrefab()
+    public static void DestroyModelPrefab()
     {
         Destroy(GameObject.FindWithTag("HandClone"));
+        Destroy(GameObject.FindWithTag("HandCloneLeftStart"));
     }
 
+ 
     private void Update()
     {
         if (isTiming){reactionTimer += Time.deltaTime;}
     }
+    
+   
+    
 }
 
 

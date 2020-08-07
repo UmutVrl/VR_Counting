@@ -21,6 +21,8 @@
       <Path>.idea</Path>
       <Path>Library</Path>
       <Path>Logs</Path>
+      <Path>RESULTS</Path>
+      <Path>ScreenshotFolder</Path>
       <Path>Temp</Path>
       <Path>obj</Path>
     </explicitExcludes>

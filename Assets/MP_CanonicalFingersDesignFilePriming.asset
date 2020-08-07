@@ -10,62 +10,83 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed9a93a89f76ed84ca7b5a8bea36e934, type: 3}
-  m_Name: MP_CanonicalFingersDesignFile
+  m_Name: MP_CanonicalFingersDesignFilePriming
   m_EditorClassIdentifier: 
   TrialRepetitions: 1
   ExperimentRepetitions: 1
-  TrialRandomization: 1
+  TrialRandomization: 0
   TrialPermutationType: 1
   BlockRandomization: 0
-  BlockPartialRandomizationSubType: 1
+  BlockPartialRandomizationSubType: 0
   Factory:
     DataTypeToCreate: 8
     VariableTypeToCreate: 3
     IntIVs:
-    - Name: PrimeNumbers
+    - Name: FrameCount
       TypeOfVariable: 0
       DataType: 0
       ExpandSettings: 1
       MixingType: 0
       Block: 0
-      Values: 03000000040000000600000007000000
+      Values: 010000000200000003000000040000000500000006000000070000000800000009000000
       Probabilities:
       - 0
       - 0
       - 0
       - 0
-    - Name: Distance
-      TypeOfVariable: 0
-      DataType: 0
-      ExpandSettings: 1
-      MixingType: 0
-      Block: 0
-      Values: feffffff0000000002000000
-      Probabilities:
       - 0
       - 0
       - 0
-    - Name: PrimingDurationConst
-      TypeOfVariable: 0
-      DataType: 0
-      ExpandSettings: 1
-      MixingType: 0
-      Block: 0
-      Values: 02000000
-      Probabilities:
+      - 0
       - 0
     FloatIVs: []
     StringIVs:
-    - Name: CountingOrder
+    - Name: Character
       TypeOfVariable: 0
       DataType: 2
       ExpandSettings: 1
-      MixingType: 0
+      MixingType: 1
       Block: 0
       Values:
-      - LeftHandFirst
-      - RightHandFirst
+      - story
+      - issue
+      - value
+      - movie
+      - river
+      - mouth
+      - judge
+      - apple
+      - sales
+      - crowd
+      - focus
+      - actor
+      - topic
+      - youth
+      - works
+      - tooth
+      - guide
+      - cycle
+      - giant
+      - sauce
       Probabilities:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
       - 0
       - 0
     BoolIVs: []
@@ -73,13 +94,7 @@ MonoBehaviour:
     Vector2IVs: []
     Vector3IVs: []
     CustomDataTypeIVs: []
-    IntDVs:
-    - Name: ShowedNumber
-      TypeOfVariable: 1
-      DataType: 0
-      ExpandSettings: 1
-      Value: 0
-      DefaultValue: -999
+    IntDVs: []
     FloatDVs:
     - Name: FixCrossDuration
       TypeOfVariable: 1

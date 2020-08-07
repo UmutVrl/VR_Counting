@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HandClone
   - Counting01
+  - HandCloneLeftStart
   layers:
   - Default
   - TransparentFX
