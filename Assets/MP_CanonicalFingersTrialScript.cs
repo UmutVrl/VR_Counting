@@ -6,7 +6,9 @@ using bmlTUX.Scripts.ExperimentParts;
 using Leap;
 using System;
 using System.CodeDom;
+using LeapInternal;
 using TMPro;
+using UnityEditor.UI;
 
 /// <summary>
 /// LeapFingerCounting Project
@@ -36,7 +38,7 @@ public class MP_CanonicalFingersTrialScript : Trial {
     private Hand handRight;
 	private Hand handLeft;
     
-	private List<float> fingerRt = new List<float>(); //TODO:CURRENTLY DISABLED
+	//private List<float> fingerRt = new List<float>();
 	
 	
     // Required Constructor. Good place to set up references to objects in the unity scene
@@ -96,8 +98,8 @@ public class MP_CanonicalFingersTrialScript : Trial {
 	    var thisTrialsNumber = (int) Data["PrimeNumbers"];
 	    var thisDistance = (int) Data["Distance"];
 	    var thisTargetNumber = thisTrialsNumber + thisDistance;
+	    var thisTrialNo = (int) Data["Trial"];
 	
-	     // TODO: AS SIMPLE AS POSSIBLE!!!
 	    // You might want to do a while-loop to wait for participant response: 
         var waitingForParticipantResponse = true;
         while (waitingForParticipantResponse) {   // keep check each frame until waitingForParticipantResponse set to false.
@@ -114,12 +116,17 @@ public class MP_CanonicalFingersTrialScript : Trial {
 	            
 	            waitingForParticipantResponse = false;
 	            experimentRunner.isTiming = false;
-	            fingerRt = DigitDetector();
+	            
+	            // Append filename to folder name (format is 'id01Trial12shot.png"')
+	            var name = $"{experimentRunner.folder}/id{experimentRunner.id}Trial{thisTrialNo}shot.png";
+
+	            // Capture the screenshot to the specified file
+	            ScreenCapture.CaptureScreenshot(name);
+
+	            //fingerRt = DigitDetector();
 	            MP_CanonicalFingersExperimentRunner.DestroyModelPrefab();
             }
-
-        
-            yield return null; // wait for next frame while allowing rest of program to run (without this the program will hang in an infinite loop)
+	        yield return null; // wait for next frame while allowing rest of program to run (without this the program will hang in an infinite loop)
         }
         
        
@@ -128,12 +135,6 @@ public class MP_CanonicalFingersTrialScript : Trial {
 
     // Optional Post-Trial code. Useful for waiting for the participant to do something after each trial (multiple frames)
     protected override IEnumerator PostCoroutine() {
-	    
-	    foreach(var numbers in fingerRt)
-	    {
-		    Debug.Log(numbers);
-	    }
-	    
 	    experimentRunner.reactionTimer = 0;
 	    yield return null;
     }
@@ -154,7 +155,7 @@ public class MP_CanonicalFingersTrialScript : Trial {
     private List<float> DigitDetector() //Hand Digit Calculator
     	{
 	        //TODO: EXTENSION THRESHOLDS CHECK OF EACH FINGER
-	        
+
 	        int a = 0, b = 0, c = 0, d = 0, e = 0 ;
     		int f = 0, g = 0, h = 0, i = 0, j = 0;
             var fingerRTs = new List<float>(){0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
@@ -183,67 +184,35 @@ public class MP_CanonicalFingersTrialScript : Trial {
     		if (handRight != null)
     		{
     			if (handRight.Fingers[0].IsExtended)
-    			{
     				a = 1;
-                    fingerRTs[0] = experimentRunner.reactionTimer;
-                    
-                }
-				if (handRight.Fingers[1].IsExtended)
-    			{
+                // fingerRTs[0] = experimentRunner.reactionTimer;
+	            if (handRight.Fingers[1].IsExtended)
     				b = 1;
-    				fingerRTs[1] = experimentRunner.reactionTimer;
-    			}
-				if (handRight.Fingers[2].IsExtended)
-    			{
+	            if (handRight.Fingers[2].IsExtended)
     				c = 1;
-    				fingerRTs[2] = experimentRunner.reactionTimer;
-    			}
-				if (handRight.Fingers[3].IsExtended)
-    			{
+    			if (handRight.Fingers[3].IsExtended)
     				d = 1;
-    				fingerRTs[3] = experimentRunner.reactionTimer;
-    			}
-    			if (handRight.Fingers[4].IsExtended)
-    			{
-    				e = 1;
-    				fingerRTs[4] = experimentRunner.reactionTimer;
-    			}
-    		}
+	            if (handRight.Fingers[4].IsExtended)
+  					e = 1;
+	        }
     
     		if (handLeft != null)
     		{
 	            if (handLeft.Fingers[0].IsExtended)
-    			{
     				f = 1;
-    				fingerRTs[5] = experimentRunner.reactionTimer;
-    			}
-	            if (handLeft.Fingers[1].IsExtended)
-    			{
+    			if (handLeft.Fingers[1].IsExtended)
     				g = 1;
-    				fingerRTs[6] = experimentRunner.reactionTimer;
-    			}
-	            if (handLeft.Fingers[2].IsExtended)
-    			{
+    			if (handLeft.Fingers[2].IsExtended)
     				h = 1;
-    				fingerRTs[7] = experimentRunner.reactionTimer;
-    			}
-	            if (handLeft.Fingers[3].IsExtended)
-    			{
+    			if (handLeft.Fingers[3].IsExtended)
     				i = 1;
-    				fingerRTs[8] = experimentRunner.reactionTimer;
-    			}
-	            if (handLeft.Fingers[4].IsExtended)
-    			{
+    			if (handLeft.Fingers[4].IsExtended)
     				j = 1;
-    				fingerRTs[9] = experimentRunner.reactionTimer;
-    			}
     		}
     		var sum = a + b + c + d + e + f + g + h + i + j;
     		fingerRTs[10] = sum;
-    
-    		return fingerRTs;
+			return fingerRTs;
     	}
-    
     
     //GetRandomNumber Method
     //Random.NextDouble returns a double between 0 and 1.

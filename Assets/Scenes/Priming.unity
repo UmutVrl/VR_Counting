@@ -641,9 +641,12 @@ MonoBehaviour:
   - {fileID: 6749499929075553737, guid: 64841c61035fec34daa4118ece36616f, type: 3}
   - {fileID: 6749499929075553737, guid: b615b348238e3f840837f1f50de314f5, type: 3}
   - {fileID: 4578233217437698912, guid: 207b8e2c94758c54891c4641bdb72dd8, type: 3}
+  modelHandLeftCounting: []
   cloneHandPosition: {fileID: 2115160840}
   reactionTimer: 0
   isTiming: 0
+  folder: ScreenshotFolder
+  id: 0
 --- !u!4 &654210771
 Transform:
   m_ObjectHideFlags: 0
@@ -2255,8 +2258,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.8
+  m_fontSizeBase: 0.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 10
@@ -2875,9 +2878,12 @@ MonoBehaviour:
   Running: 0
   writingBoard: {fileID: 0}
   modelHand: []
+  modelHandLeftCounting: []
   cloneHandPosition: {fileID: 0}
   reactionTimer: 0
   isTiming: 0
+  folder: ScreenshotFolder
+  id: 0
 --- !u!4 &1688037291
 Transform:
   m_ObjectHideFlags: 0

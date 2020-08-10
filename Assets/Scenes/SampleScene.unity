@@ -655,6 +655,8 @@ MonoBehaviour:
   cloneHandPosition: {fileID: 2115160840}
   reactionTimer: 0
   isTiming: 0
+  folder: ScreenshotFolder
+  id: 999
 --- !u!4 &654210771
 Transform:
   m_ObjectHideFlags: 0
@@ -2266,8 +2268,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.8
+  m_fontSizeBase: 0.8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 10
@@ -2890,6 +2892,8 @@ MonoBehaviour:
   cloneHandPosition: {fileID: 0}
   reactionTimer: 0
   isTiming: 0
+  folder: ScreenshotFolder
+  id: 0
 --- !u!4 &1688037291
 Transform:
   m_ObjectHideFlags: 0

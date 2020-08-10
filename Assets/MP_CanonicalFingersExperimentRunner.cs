@@ -30,6 +30,8 @@ public class MP_CanonicalFingersExperimentRunner : ExperimentRunner {
     public float reactionTimer;
     public bool isTiming;
     
+    public string folder = "ScreenshotFolder";
+    public int id;
     
     public static class WaitFor
     {

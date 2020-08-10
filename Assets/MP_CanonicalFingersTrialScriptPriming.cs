@@ -36,8 +36,6 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
     private Hand handRight;
 	private Hand handLeft;
     
-	//private List<float> fingerRt = new List<float>(); //TODO:CURRENTLY DISABLED
-	
 	
     // Required Constructor. Good place to set up references to objects in the unity scene
     public MP_CanonicalFingersTrialScriptPriming(ExperimentRunner runner, DataRow data) : base(runner, data)
@@ -46,18 +44,15 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
         // GameObject myGameObject = myRunner.MyGameObject;  // get reference to gameObject stored in your custom runner
         
         experimentRunner = (MP_CanonicalFingersExperimentRunner)runner;
-        
-    }
+	}
     
-
 
 
     // Optional Pre-Trial code. Useful for setting unity scene for trials. Executes in one frame at the start of each trial
     protected override void PreMethod() {
 	    // float thisTrialsDistanceValue = (float)Data["MyDistanceFloatVariableName"]; // Read values of independent variables
         // myGameObject.transform.position = new Vector3(thisTrialsDistanceValue, 0, 0); // set up scene based on value
-        
-	}
+    }
 
 
     // Optional Pre-Trial code. Useful for waiting for the participant to
@@ -109,21 +104,13 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
 
             yield return null; // wait for next frame while allowing rest of program to run (without this the program will hang in an infinite loop)
 		}
-        
-       
+     
     }
 
 
     // Optional Post-Trial code. Useful for waiting for the participant to do something after each trial (multiple frames)
     protected override IEnumerator PostCoroutine() {
-	    
-	  /*  foreach(var numbers in fingerRt)
-	    {
-		    Debug.Log(numbers);
-	    }
-	 */
-	  
-	    experimentRunner.reactionTimer = 0;
+		experimentRunner.reactionTimer = 0;
 	    yield return null;
     }
 
@@ -133,7 +120,6 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
     protected override void PostMethod() {
         // How to write results to dependent variables: 
         // Data["MyDependentFloatVariable"] = someFloatVariable;
-
     }
 
     /// <summary>
@@ -142,7 +128,6 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
     /// </summary>
     private static void GetPrimeDuration()
     {
-
     }
     
     
