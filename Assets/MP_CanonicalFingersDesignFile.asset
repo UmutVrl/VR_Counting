@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9a93a89f76ed84ca7b5a8bea36e934, type: 3}
   m_Name: MP_CanonicalFingersDesignFile
   m_EditorClassIdentifier: 
-  TrialRepetitions: 15
+  TrialRepetitions: 7
   ExperimentRepetitions: 1
   TrialRandomization: 1
   TrialPermutationType: 1
@@ -22,14 +22,19 @@ MonoBehaviour:
     DataTypeToCreate: 8
     VariableTypeToCreate: 3
     IntIVs:
-    - Name: PrimeNumbers
+    - Name: PrimeNo
       TypeOfVariable: 0
       DataType: 0
       ExpandSettings: 1
       MixingType: 0
       Block: 0
-      Values: 03000000040000000600000007000000
+      Values: 010000000200000003000000040000000500000006000000070000000800000009000000
       Probabilities:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
       - 0
       - 0
       - 0
@@ -45,13 +50,13 @@ MonoBehaviour:
       - 0
       - 0
       - 0
-    - Name: PrimingDurationConst
+    - Name: PrimingConst
       TypeOfVariable: 0
       DataType: 0
       ExpandSettings: 1
       MixingType: 0
       Block: 0
-      Values: 02000000
+      Values: 03000000
       Probabilities:
       - 0
     FloatIVs: []
@@ -74,26 +79,38 @@ MonoBehaviour:
     Vector3IVs: []
     CustomDataTypeIVs: []
     IntDVs:
-    - Name: ShowedNumber
+    - Name: ShowedNo
       TypeOfVariable: 1
       DataType: 0
       ExpandSettings: 1
       Value: 0
       DefaultValue: -999
     FloatDVs:
-    - Name: FixCrossDuration
+    - Name: FixCrossTime
       TypeOfVariable: 1
       DataType: 1
       ExpandSettings: 1
       Value: 0
       DefaultValue: -999
-    - Name: PrimingDuration
+    - Name: PrimingTime
       TypeOfVariable: 1
       DataType: 1
       ExpandSettings: 1
       Value: 0
       DefaultValue: -999
-    StringDVs: []
+    StringDVs:
+    - Name: FingersExpect
+      TypeOfVariable: 1
+      DataType: 2
+      ExpandSettings: 1
+      Value: 
+      DefaultValue: null
+    - Name: FingersPerform
+      TypeOfVariable: 1
+      DataType: 2
+      ExpandSettings: 1
+      Value: 
+      DefaultValue: null
     BoolDVs: []
     GameObjectDVs: []
     Vector2DVs: []
@@ -105,7 +122,7 @@ MonoBehaviour:
       TypeOfVariable: 2
       DataType: 1
       ExpandSettings: 1
-      Value: 999
+      Value: 0
       ConstrainValues: 0
       PossibleValues: []
     StringParticipantVariables: []

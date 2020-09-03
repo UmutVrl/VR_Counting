@@ -73,11 +73,11 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
 	    yield return new WaitForSeconds(0.05f);
 	    experimentRunner.writingBoard.text = thisCharacter;
 	    yield return MP_CanonicalFingersExperimentRunner.WaitFor.Frames(thisFrameCount);
-	    experimentRunner.writingBoard.text = "%%%%%";     //  https://unicode-table.com/en/#0025   
+	    experimentRunner.isTiming = true;
+	    experimentRunner.writingBoard.text = "$";     //  https://unicode-table.com/en/#0025   
 	    yield return new WaitForSeconds(0.05f);
 	    Data["PrimingDuration"] = Math.Round(Time.deltaTime * thisFrameCount, 3);
 	    experimentRunner.writingBoard.text = "";
-	    experimentRunner.isTiming = true;
 	    yield return null; //required for coroutine
     }
 

@@ -56,7 +56,7 @@ public class MP_CanonicalFingersExperimentRunner : ExperimentRunner {
     /// <param name="a"></param>
     /// a is the digit to be shown
     /// <param name="b"></param>
-    /// b is teh starting position of the finger counting
+    /// b is the starting position of the finger counting
     /// LeftHandFirst or RightHandFirst  
     //
     public void CallModelPrefab(int a, string b)

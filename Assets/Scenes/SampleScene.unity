@@ -656,7 +656,7 @@ MonoBehaviour:
   reactionTimer: 0
   isTiming: 0
   folder: ScreenshotFolder
-  id: 999
+  id: 888
 --- !u!4 &654210771
 Transform:
   m_ObjectHideFlags: 0

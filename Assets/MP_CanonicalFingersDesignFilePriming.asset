@@ -48,26 +48,26 @@ MonoBehaviour:
       MixingType: 1
       Block: 0
       Values:
-      - story
-      - issue
-      - value
-      - movie
-      - river
-      - mouth
-      - judge
-      - apple
-      - sales
-      - crowd
-      - focus
-      - actor
-      - topic
-      - youth
-      - works
-      - tooth
-      - guide
-      - cycle
-      - giant
-      - sauce
+      - e
+      - z
+      - n
+      - k
+      - s
+      - f
+      - r
+      - b
+      - i
+      - w
+      - a
+      - m
+      - t
+      - o
+      - d
+      - c
+      - h
+      - g
+      - u
+      - l
       Probabilities:
       - 0
       - 0
