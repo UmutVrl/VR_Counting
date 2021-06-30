@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed9a93a89f76ed84ca7b5a8bea36e934, type: 3}
   m_Name: MP_CanonicalFingersDesignFile
   m_EditorClassIdentifier: 
-  TrialRepetitions: 7
+  TrialRepetitions: 6
   ExperimentRepetitions: 1
   TrialRandomization: 1
   TrialPermutationType: 1
@@ -56,7 +56,7 @@ MonoBehaviour:
       ExpandSettings: 1
       MixingType: 0
       Block: 0
-      Values: 03000000
+      Values: 06000000
       Probabilities:
       - 0
     FloatIVs: []
@@ -122,7 +122,7 @@ MonoBehaviour:
       TypeOfVariable: 2
       DataType: 1
       ExpandSettings: 1
-      Value: 0
+      Value: 24
       ConstrainValues: 0
       PossibleValues: []
     StringParticipantVariables: []

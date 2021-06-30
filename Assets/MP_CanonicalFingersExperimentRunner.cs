@@ -29,6 +29,7 @@ public class MP_CanonicalFingersExperimentRunner : ExperimentRunner {
     
     public float reactionTimer;
     public bool isTiming;
+    public static int TrialFrameConstant = 7;  //Static keyword makes this variable a Member of the class, not of any particular instance.
     
     public string folder = "ScreenshotFolder";
     public int id;
@@ -50,9 +51,7 @@ public class MP_CanonicalFingersExperimentRunner : ExperimentRunner {
         }
     }
     
-    /// <summary>
     // Instantiate Hand Models 
-    /// </summary>
     /// <param name="a"></param>
     /// a is the digit to be shown
     /// <param name="b"></param>
@@ -77,14 +76,11 @@ public class MP_CanonicalFingersExperimentRunner : ExperimentRunner {
         Destroy(GameObject.FindWithTag("HandClone"));
         Destroy(GameObject.FindWithTag("HandCloneLeftStart"));
     }
-
  
     private void Update()
     {
         if (isTiming){reactionTimer += Time.deltaTime;}
     }
-    
-   
     
 }
 

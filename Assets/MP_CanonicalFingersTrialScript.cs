@@ -64,7 +64,7 @@ public class MP_CanonicalFingersTrialScript : Trial {
     // do something before each trial (multiple frames). Also might be useful for fixation points etc.
     protected override IEnumerator PreCoroutine()
     {
-	    var fixationCrossDuration = (float)GetRandomNumber(1f, 1.5f);
+	    var fixationCrossDuration = (float)GetRandomNumber(0.8f, 1.2f);
 	    var thisTrialsNumber = (int) Data["PrimeNo"];
 	    var thisDistance = (int) Data["Distance"];
 	    var thisCountingOrder = (string) Data["CountingOrder"];
@@ -91,11 +91,11 @@ public class MP_CanonicalFingersTrialScript : Trial {
 	    experimentRunner.writingBoard.text = ".";         
 	    yield return new WaitForSeconds(fixationCrossDuration);
 	    experimentRunner.writingBoard.text = "$"; //  https://unicode-table.com/en/#0025   
-	    yield return new WaitForSeconds(0.66f);
+	    yield return new WaitForSeconds(0.066f);
 	    experimentRunner.writingBoard.text = thisTrialsNumber.ToString();
 	    yield return MP_CanonicalFingersExperimentRunner.WaitFor.Frames(thisPrimingDurationConst);
 	    experimentRunner.writingBoard.text = "$";     
-	    yield return new WaitForSeconds(0.66f);
+	    yield return new WaitForSeconds(0.066f);
 	    experimentRunner.writingBoard.text = "";
 	    experimentRunner.CallModelPrefab(thisTargetNumber, thisCountingOrder);
 	    experimentRunner.isTiming = true;

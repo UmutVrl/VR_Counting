@@ -3,6 +3,7 @@
   <component name="ContentModelUserStore">
     <attachedFolders />
     <explicitIncludes>
+      <Path>Assets</Path>
       <Path>Library/PackageCache/com.biomotionlab.tux@161d4ed187</Path>
       <Path>Library/PackageCache/com.unity.collab-proxy@2.0.0-preview.17</Path>
       <Path>Library/PackageCache/com.unity.ext.nunit@1.0.0</Path>

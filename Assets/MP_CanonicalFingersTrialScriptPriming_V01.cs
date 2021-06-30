@@ -6,7 +6,6 @@ using bmlTUX.Scripts.ExperimentParts;
 using Leap;
 using System;
 using System.CodeDom;
-using System.Globalization;
 using TMPro;
 
 /// <summary>
@@ -17,6 +16,7 @@ using TMPro;
 /// </summary>
 
 /// <summary>
+/// ***** OLD VERSION: BEFORE ADAPTIVE THRESHOLD TESTING MODIFICATION *****
 /// Classes that inherit from Trial define custom behaviour for your experiment's trials.
 /// Most experiments will need to edit this file to describe what happens in a trial.
 ///
@@ -24,7 +24,7 @@ using TMPro;
 ///
 /// You can delete any unused methods and unwanted comments. The only required parts are the constructor and the MainCoroutine.
 /// </summary>
-public class MP_CanonicalFingersTrialScriptPriming : Trial {
+public class MP_CanonicalFingersTrialScriptPriming_V01 : Trial {
 
 
     // // You usually want to store a reference to your experiment runner
@@ -36,9 +36,10 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
     private Frame current;
     private Hand handRight;
 	private Hand handLeft;
+    
 	
     // Required Constructor. Good place to set up references to objects in the unity scene
-    public MP_CanonicalFingersTrialScriptPriming(ExperimentRunner runner, DataRow data) : base(runner, data)
+    public MP_CanonicalFingersTrialScriptPriming_V01(ExperimentRunner runner, DataRow data) : base(runner, data)        //OLD VERSION: BEFORE ADAPTIVE THRESHOLD TESTING MODIFICATION
     {
 	    // myRunner = (YourCustomExperimentRunner)runner;  //cast the generic runner to your custom type.
         // GameObject myGameObject = myRunner.MyGameObject;  // get reference to gameObject stored in your custom runner
@@ -46,6 +47,7 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
         experimentRunner = (MP_CanonicalFingersExperimentRunner)runner;
 	}
     
+
 
     // Optional Pre-Trial code. Useful for setting unity scene for trials. Executes in one frame at the start of each trial
     protected override void PreMethod() {
@@ -60,9 +62,8 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
     {
 	    var fixationCrossDuration = (float)GetRandomNumber(1, 1.5);
 	    var thisCharacter = (string) Data["Character"];
-	    var thisFrameConst = MP_CanonicalFingersExperimentRunner.TrialFrameConstant;
+	    var thisFrameCount = (int) Data["FrameCount"];
 	    
-	    Data["PrimingConstant"] = thisFrameConst;
 	    Data["FixCrossDuration"] = fixationCrossDuration;
 	    
 	    experimentRunner.writingBoard.color = Color.white;
@@ -70,13 +71,13 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
 	    experimentRunner.writingBoard.text = ".";         
 	    yield return new WaitForSeconds(fixationCrossDuration);
 	    experimentRunner.writingBoard.text = "";     
-	    yield return new WaitForSeconds(0.066f);
+	    yield return new WaitForSeconds(0.05f);
 	    experimentRunner.writingBoard.text = thisCharacter;
-	    yield return MP_CanonicalFingersExperimentRunner.WaitFor.Frames(thisFrameConst);
-	    //experimentRunner.isTiming = true;
+	    yield return MP_CanonicalFingersExperimentRunner.WaitFor.Frames(thisFrameCount);
+	    experimentRunner.isTiming = true;
 	    experimentRunner.writingBoard.text = "$";     //  https://unicode-table.com/en/#0025   
-	    yield return new WaitForSeconds(0.066f);
-	    Data["PrimingDuration"] = Math.Round(Time.deltaTime * thisFrameConst, 3);
+	    yield return new WaitForSeconds(0.05f);
+	    Data["PrimingDuration"] = Math.Round(Time.deltaTime * thisFrameCount, 3);
 	    experimentRunner.writingBoard.text = "";
 	    yield return null; //required for coroutine
     }
@@ -85,11 +86,6 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
     // Main Trial Execution Code.
     protected override IEnumerator RunMainCoroutine()
     {
-	    var thisCharacter = (string) Data["Character"];
-	    var pressedKey =  char.ToUpper(Convert.ToChar(thisCharacter)) ;
-	    //var thisConstant = (int) Data["PrimingConstant"];
-	    
-	    
 	    // TODO: AS SIMPLE AS POSSIBLE!!!
 	    // You might want to do a while-loop to wait for participant response: 
         var waitingForParticipantResponse = true;
@@ -97,27 +93,14 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
 
             if (Input.GetKeyDown(KeyCode.Return)) { // check return key pressed
 	            waitingForParticipantResponse = false;  // escape from while loop
-	            //experimentRunner.isTiming = false;
+	            experimentRunner.isTiming = false;
 	            Data["Skipped"] = true;
-	            MP_CanonicalFingersExperimentRunner.TrialFrameConstant++;
             }
             
-            else if (Input.GetKey(thisCharacter))
-            {
-	            // check same character key pressed
-	            waitingForParticipantResponse = false; // escape from while loop
+            else if (experimentRunner.reactionTimer > 1f) {
 	            Data["Skipped"] = false;
-	            Data["PressedKey"] = pressedKey;
-	            MP_CanonicalFingersExperimentRunner.TrialFrameConstant--;
-            }
-
-
-            else if (experimentRunner.reactionTimer > 10f)
-            {
-	            Data["Skipped"] = true;
-	            //experimentRunner.isTiming = false;
+	            experimentRunner.isTiming = false;
 	            break;
-
             }
 
             yield return null; // wait for next frame while allowing rest of program to run (without this the program will hang in an infinite loop)
@@ -129,7 +112,7 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
     // Optional Post-Trial code. Useful for waiting for the participant to do something after each trial (multiple frames)
     protected override IEnumerator PostCoroutine() {
 		experimentRunner.reactionTimer = 0;
-		yield return null;
+	    yield return null;
     }
 
 
@@ -159,26 +142,6 @@ public class MP_CanonicalFingersTrialScriptPriming : Trial {
 	    var random = new System.Random();
 	    return random.NextDouble() * (maximum - minimum) + minimum;
     }
-    
-    //AdjustFrameCount Method
-    
-    /*
-    private int AdjustFrameCount()
-    {
-	    var i = 5;
-	    
-	    if((int)Data["Trial"] == 0)
-			return 5;
-	    
-	    var check = (bool) Data["Skipped"];
-	    Debug.Log(check);
-		if (check) 
-			i += 1;
-		else
-			i -= 1;
-	    
-	    return i;
-    }
-   */ 
+
 }
 
